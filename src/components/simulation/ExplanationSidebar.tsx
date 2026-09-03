@@ -166,7 +166,7 @@ export function ExplanationSidebar({ onClose }: { onClose: () => void }) {
               ["Maximum height", "H = \\frac{v_0^2 \\sin^2\\theta}{2g}"],
               ["Time of flight", "T = \\frac{2 v_0 \\sin\\theta}{g}"],
               ["Range", "R = \\frac{v_0^2 \\sin 2\\theta}{g}"],
-            ].map(([label, math]) => (
+            ].map(([label = "", math = ""]) => (
               <div key={label} className="rounded-md border border-border p-3">
                 <p className="mb-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
                   {label}

@@ -244,7 +244,7 @@ export function SimulationCanvas({
       ctx.font = "10px Inter, sans-serif";
       ctx.fillText("Maximum Height", apexP.x, apexP.y - 14);
 
-      const last = pts[pts.length - 1];
+      const last = pts[pts.length - 1] ?? origin;
       const lastP = project(last);
       ctx.fillText("Range", lastP.x + 6, lastP.y + 16);
 
