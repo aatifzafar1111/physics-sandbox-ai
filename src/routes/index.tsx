@@ -38,15 +38,15 @@ function Index() {
   }, []);
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
+    <div className="flex h-screen flex-col overflow-hidden bg-canvas text-foreground">
       {/* Top navbar */}
-      <header className="flex h-14 shrink-0 items-center justify-between border-b border-border glass-panel px-4">
+      <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-4">
         <div className="flex items-center gap-2.5">
-          <span className="flex size-8 items-center justify-center rounded-lg bg-primary/15 text-primary glow-accent">
+          <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <Atom className="size-4.5" />
           </span>
           <span className="text-sm font-semibold tracking-tight">
-            Physics<span className="text-accent">AI</span>
+            Physics<span className="text-primary">AI</span>
           </span>
           <span className="hidden rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground sm:inline">
             lab · v0.9
@@ -57,7 +57,7 @@ function Index() {
             type="button"
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label={sidebarOpen ? "Hide explanation panel" : "Show explanation panel"}
-            className="flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring lg:hidden"
+            className="flex size-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring lg:hidden"
           >
             {sidebarOpen ? (
               <PanelRightClose className="size-4" />
@@ -67,7 +67,7 @@ function Index() {
           </button>
           <button
             type="button"
-            className="flex h-9 items-center gap-2 rounded-lg bg-primary px-3.5 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 focus-visible:outline-2 focus-visible:outline-ring glow-accent"
+            className="flex h-9 items-center gap-2 rounded-md bg-primary px-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             <Plus className="size-4" />
             New Simulation
@@ -87,7 +87,7 @@ function Index() {
         {sidebarOpen && (
           <>
             <div
-              className="fixed inset-0 z-30 bg-background/60 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-30 bg-foreground/20 lg:hidden"
               onClick={() => setSidebarOpen(false)}
               aria-hidden
             />
