@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Atom, PanelRightClose, PanelRightOpen, Plus } from "lucide-react";
-import { SimulationCanvas } from "../components/simulation/SimulationCanvas";
+import { SimulationCanvas, type ViewMode } from "../components/simulation/SimulationCanvas";
+import { SimControls } from "../components/simulation/SimControls";
 import { PromptBar } from "../components/simulation/PromptBar";
 import { ExplanationSidebar } from "../components/simulation/ExplanationSidebar";
 
@@ -79,7 +80,14 @@ function Index() {
       <div className="relative flex min-h-0 flex-1">
         {/* Canvas + floating prompt */}
         <main className="relative min-w-0 flex-1 p-3 pb-0 sm:p-4 sm:pb-0">
-          <SimulationCanvas />
+          <SimulationCanvas mode={viewMode} resetSignal={resetSignal} />
+          <div className="pointer-events-none absolute inset-x-0 bottom-28 z-10 flex justify-center">
+            <SimControls
+              mode={viewMode}
+              onMode={setViewMode}
+              onReset={() => setResetSignal((n) => n + 1)}
+            />
+          </div>
           <PromptBar />
         </main>
 
