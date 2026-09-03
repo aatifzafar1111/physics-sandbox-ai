@@ -1,4 +1,5 @@
 @import "tailwindcss" source(none);
+@import "katex/dist/katex.min.css";
 @source "../src";
 @import "tw-animate-css";
 
@@ -28,30 +29,36 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-axis-x: var(--axis-x);
+  --color-axis-y: var(--axis-y);
+  --color-axis-z: var(--axis-z);
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
   --radius: 0.5rem;
-  /* Light Academic palette */
-  --background: oklch(1 0 0); /* #ffffff */
-  --canvas: oklch(0.985 0.002 250); /* #f9fafb */
-  --foreground: oklch(0.21 0.03 264); /* #111827 */
+  /* Light Academic — matte maroon accent */
+  --background: oklch(1 0 0);
+  --canvas: oklch(0.982 0.002 60);
+  --foreground: oklch(0.23 0.02 30);
   --panel-bg: oklch(1 0 0);
-  --panel-foreground: oklch(0.21 0.03 264);
-  --primary: oklch(0.55 0.21 262); /* #2563eb */
+  --panel-foreground: oklch(0.23 0.02 30);
+  --primary: oklch(0.42 0.13 20); /* matte academic maroon */
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.968 0.003 248); /* #f3f4f6 */
-  --secondary-foreground: oklch(0.28 0.02 264);
-  --muted: oklch(0.968 0.003 248);
-  --muted-foreground: oklch(0.45 0.02 264); /* #4b5563 */
-  --accent: oklch(0.55 0.21 262);
+  --secondary: oklch(0.972 0.003 60);
+  --secondary-foreground: oklch(0.3 0.02 30);
+  --muted: oklch(0.972 0.003 60);
+  --muted-foreground: oklch(0.5 0.015 40);
+  --accent: oklch(0.42 0.13 20);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.58 0.21 25);
-  --border: oklch(0.922 0.004 248); /* #e5e7eb */
-  --input: oklch(0.922 0.004 248);
-  --ring: oklch(0.55 0.21 262);
+  --border: oklch(0.925 0.003 60);
+  --input: oklch(0.925 0.003 60);
+  --ring: oklch(0.42 0.13 20);
+  --axis-x: oklch(0.5 0.18 20);
+  --axis-y: oklch(0.55 0.15 145);
+  --axis-z: oklch(0.55 0.15 250);
 }
 
 @layer base {
@@ -69,10 +76,10 @@
 
 @utility canvas-grid {
   background-image:
-    linear-gradient(to right, oklch(0.55 0.21 262 / 7%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.55 0.21 262 / 7%) 1px, transparent 1px),
-    linear-gradient(to right, oklch(0.55 0.21 262 / 4%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.55 0.21 262 / 4%) 1px, transparent 1px);
+    linear-gradient(to right, oklch(0.42 0.13 20 / 5%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.42 0.13 20 / 5%) 1px, transparent 1px),
+    linear-gradient(to right, oklch(0.42 0.13 20 / 3%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.42 0.13 20 / 3%) 1px, transparent 1px);
   background-size:
     96px 96px,
     96px 96px,
@@ -80,15 +87,21 @@
     24px 24px;
 }
 
-@utility glass-panel {
-  background: var(--panel-bg);
+@utility card-shadow {
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.06);
 }
 
-@utility card-shadow {
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+@utility soft-shadow {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 @utility scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: oklch(0.85 0.005 248) transparent;
+  scrollbar-color: oklch(0.85 0.005 60) transparent;
+}
+
+.katex {
+  font-size: 1em;
 }
