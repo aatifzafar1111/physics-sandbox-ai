@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 
 const SUGGESTIONS = [
   "Pendulum, 5 kg, no air resistance",
@@ -24,10 +24,10 @@ export function PromptBar({ onGenerate }: { onGenerate?: (prompt: string) => voi
     <div className="pointer-events-none absolute inset-x-0 bottom-5 z-20 flex justify-center px-4">
       <form
         onSubmit={submit}
-        className="pointer-events-auto w-full max-w-2xl rounded-2xl glass-panel border border-border shadow-2xl shadow-background/80"
+        className="pointer-events-auto w-full max-w-2xl rounded-xl border border-border bg-background card-shadow"
       >
         <div className="flex items-center gap-2 p-2 pl-4">
-          <Sparkles className="size-4 shrink-0 text-accent" />
+          <Search className="size-4 shrink-0 text-muted-foreground" />
           <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -38,7 +38,7 @@ export function PromptBar({ onGenerate }: { onGenerate?: (prompt: string) => voi
           <button
             type="submit"
             disabled={loading || !value.trim()}
-            className="flex h-10 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground transition-all hover:brightness-110 focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 glow-accent"
+            className="flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
           >
             {loading ? (
               <>
@@ -46,15 +46,12 @@ export function PromptBar({ onGenerate }: { onGenerate?: (prompt: string) => voi
                 Generating
               </>
             ) : (
-              <>
-                <Sparkles className="size-4" />
-                Generate
-              </>
+              "Generate"
             )}
           </button>
         </div>
         <div className="flex flex-wrap items-center gap-2 border-t border-border px-4 py-2">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
             try:
           </span>
           {SUGGESTIONS.map((s) => (
@@ -62,7 +59,7 @@ export function PromptBar({ onGenerate }: { onGenerate?: (prompt: string) => voi
               key={s}
               type="button"
               onClick={() => setValue(s)}
-              className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+              className="rounded-md border border-border bg-secondary px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
             >
               {s}
             </button>
