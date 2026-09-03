@@ -29,14 +29,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1023px)");
-    const apply = () => {
-      setIsMobile(mq.matches);
-      setSidebarOpen(!mq.matches);
-    };
+    const apply = () => setSidebarOpen(!mq.matches);
     apply();
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
