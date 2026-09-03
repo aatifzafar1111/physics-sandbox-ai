@@ -81,16 +81,18 @@ function Index() {
       {/* Main region */}
       <div className="relative flex min-h-0 flex-1">
         {/* Canvas + floating prompt */}
-        <main className="relative min-w-0 flex-1 p-3 pb-0 sm:p-4 sm:pb-0">
+        <main className="relative min-w-0 flex-1 p-3 sm:p-4">
           <SimulationCanvas mode={viewMode} resetSignal={resetSignal} />
-          <div className="pointer-events-none absolute inset-x-0 bottom-28 z-10 flex justify-center">
+          <div className="pointer-events-none absolute inset-x-0 bottom-32 z-10 flex justify-center px-4">
             <SimControls
               mode={viewMode}
               onMode={setViewMode}
               onReset={() => setResetSignal((n) => n + 1)}
             />
           </div>
-          <PromptBar />
+          <div className="pointer-events-none absolute inset-x-0 bottom-5 z-20 flex justify-center px-4">
+            <PromptBar />
+          </div>
         </main>
 
         {/* Explanation sidebar — desktop inline, mobile overlay */}
