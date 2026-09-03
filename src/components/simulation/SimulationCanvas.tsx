@@ -21,15 +21,20 @@ export function SimulationCanvas() {
     let t = 0;
 
     const resize = () => {
-      const parent = canvas.parentElement;
-      if (!parent) return;
-      canvas.width = parent.clientWidth * window.devicePixelRatio;
-      canvas.height = parent.clientHeight * window.devicePixelRatio;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const w = Math.max(1, Math.round(rect.width * dpr));
+      const h = Math.max(1, Math.round(rect.height * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
     };
     resize();
     window.addEventListener("resize", resize);
 
     const draw = () => {
+      resize();
       t += 0.008;
       const w = canvas.width;
       const h = canvas.height;
