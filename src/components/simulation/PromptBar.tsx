@@ -1,14 +1,18 @@
 import { useState, type FormEvent } from "react";
-import { Loader2, Search } from "lucide-react";
+import { Loader2, SendHorizonal, Settings2, Sparkles } from "lucide-react";
 
-const SUGGESTIONS = [
-  "Pendulum, 5 kg, no air resistance",
-  "Double-slit photon interference",
-  "Projectile at 45°, Mars gravity",
+const EXAMPLES = [
+  "Pendulum motion",
+  "Spring-mass system",
+  "Colliding spheres",
+  "Inclined plane",
+  "Wave on a string",
 ];
 
 export function PromptBar({ onGenerate }: { onGenerate?: (prompt: string) => void }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(
+    "Simulate projectile motion with an initial velocity of 20 m/s at 45 degrees...",
+  );
   const [loading, setLoading] = useState(false);
 
   const submit = (e: FormEvent) => {
@@ -16,56 +20,71 @@ export function PromptBar({ onGenerate }: { onGenerate?: (prompt: string) => voi
     if (!value.trim() || loading) return;
     setLoading(true);
     onGenerate?.(value.trim());
-    // Simulated generation latency — wire to a real model call later
-    setTimeout(() => setLoading(false), 2200);
+    setTimeout(() => setLoading(false), 1800);
   };
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-5 z-20 flex justify-center px-4">
-      <form
-        onSubmit={submit}
-        className="pointer-events-auto w-full max-w-2xl rounded-xl border border-border bg-background card-shadow"
-      >
-        <div className="flex items-center gap-2 p-2 pl-4">
-          <Search className="size-4 shrink-0 text-muted-foreground" />
-          <input
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="Simulate a pendulum with a mass of 5 kg and no air resistance…"
-            aria-label="Describe a physics simulation"
-            className="h-10 flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-          />
-          <button
-            type="submit"
-            disabled={loading || !value.trim()}
-            className="flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
+    <form
+      onSubmit={submit}
+      className="pointer-events-auto w-full max-w-3xl rounded-xl border border-border bg-background px-4 py-3 card-shadow"
+    >
+      <div className="flex items-start gap-3">
+        <span className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <Sparkles className="size-4" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <label
+            htmlFor="physics-prompt"
+            className="block text-xs font-medium text-muted-foreground"
           >
-            {loading ? (
-              <>
-                <Loader2 className="size-4 animate-spin" />
-                Generating
-              </>
-            ) : (
-              "Generate"
-            )}
-          </button>
-        </div>
-        <div className="flex flex-wrap items-center gap-2 border-t border-border px-4 py-2">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-            try:
-          </span>
-          {SUGGESTIONS.map((s) => (
+            Describe the physics simulation you want to create...
+          </label>
+          <div className="mt-2 flex items-center gap-2">
+            <div className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-border bg-background px-3">
+              <input
+                id="physics-prompt"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Simulate projectile motion with an initial velocity of 20 m/s at 45 degrees..."
+                className="h-10 min-w-0 flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+              />
+              <button
+                type="button"
+                aria-label="Simulation settings"
+                className="flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              >
+                <Settings2 className="size-4" />
+              </button>
+            </div>
             <button
-              key={s}
-              type="button"
-              onClick={() => setValue(s)}
-              className="rounded-md border border-border bg-secondary px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+              type="submit"
+              disabled={loading || !value.trim()}
+              className="flex h-10 shrink-0 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {s}
+              {loading ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <SendHorizonal className="size-4" />
+              )}
+              {loading ? "Generating" : "Generate"}
             </button>
-          ))}
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-center gap-2 pl-11">
+        <span className="text-[11px] font-medium text-muted-foreground">Examples:</span>
+        {EXAMPLES.map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => setValue(s)}
+            className="rounded-md border border-border bg-secondary px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+    </form>
   );
 }
