@@ -234,7 +234,8 @@ export function SimulationCanvas({
       });
 
       // Apex + range annotations
-      const apex = pts.reduce((a, b) => (b.y > a.y ? b : a), pts[0]);
+      const origin: Vec3 = { x: 0, y: 0, z: 0 };
+      const apex = pts.reduce<Vec3>((a, b) => (b.y > a.y ? b : a), pts[0] ?? origin);
       const apexP = project(apex);
       ctx.setLineDash([3, 4]);
       line({ x: apex.x, y: 0, z: 0 }, apex, "rgba(129,40,52,0.45)");
